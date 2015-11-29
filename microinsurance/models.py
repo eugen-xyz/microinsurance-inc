@@ -22,6 +22,7 @@ class Underwriter(models.Model):
 	created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
 	underwriter_status_active =  models.BooleanField(default=True)
 
+
 	REQUIRED_FIELDS = [
 		'underwriter_name', 'underwriter_email', 
 	 	'underwriter_contact_number', 'contact_person',

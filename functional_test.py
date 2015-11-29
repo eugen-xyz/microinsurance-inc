@@ -79,6 +79,27 @@ class AdminLogInTest(unittest.TestCase):
 		home_link.click()
 
 
+		# add a branch
+		branch_link = self.browser.find_element_by_link_text('Branches')
+		branch_link.click()
+
+		add_branch_link = self.browser.find_element_by_link_text('Add Branch')
+		add_branch_link.click()
+
+		branch_name = self.browser.find_element_by_name('branch_name')
+		branch_name.send_keys('Manulife - San Fernando, Pampanga')
+
+		branch_manager = self.browser.find_element_by_name('branch_manager')
+		branch_manager.send_keys('user1')
+
+		branch_contact_number = self.browser.find_element_by_name('branch_contact_number')
+		branch_contact_number.send_keys('09899887654')
+		branch_contact_number.send_keys(Keys.RETURN)
+
+		home_link = self.browser.find_element_by_link_text('Home')
+		home_link.click()
+
+
 		self.fail('Finish the test!')
 
 

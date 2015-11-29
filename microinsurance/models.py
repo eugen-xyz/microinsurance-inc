@@ -8,7 +8,7 @@ import datetime
 class Validators(models.Model):
 	name_validator = RegexValidator(regex=r'^\S+[a-zA-Z0-9\s]+[^~\`\!\#\$\%\^\&\*\(\)\+\=\{\}\?\/\>\;\:\<\,\[\]\|\\]*$')
 	email_validator = RegexValidator(regex=r'^[a-zA-Z0-9@_\-.][^~\`\!\#\$\%\^\&\*\(\)\+\=\{\}\?\/\>\;\:\<\,\[\]\|\\\s]*$')
-
+	#add contact_number_validator = 
 
 class Underwriter(models.Model):
 	
@@ -34,7 +34,7 @@ class Underwriter(models.Model):
 
 
 class Branch(models.Model):
-	branch_name = models.CharField(max_length=200, blank=False)
+	branch_name = models.CharField(validators=[Validators.name_validator], max_length=200, blank=False, unique=True)
 	branch_manager = models.OneToOneField(User, primary_key=True)
 	branch_contact_number = models.CharField(max_length=200, blank=False)
 	branch_created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
@@ -48,10 +48,10 @@ class Branch(models.Model):
 		return self.branch_name
 
 
-class Insurance(models.Model):
-	product_name = models.CharField(max_length=200, blank=False)
-	base_price = models.DecimalField(max_digits=18, decimal_places=2)
-	selling_price = models.DecimalField(max_digits=18, decimal_places=2)
+class Product(models.Model):
+	product_name = models.CharField(validators=[Validators.name_validator], max_length=200, blank=False, unique=True)
+	base_price = models.DecimalField(max_digits=9, decimal_places=2)
+	selling_price = models.DecimalField(max_digits=9, decimal_places=2)
 	limit_per_head = models.IntegerField(max_length=None, blank=False)
 	insurance_provider_name = models.ForeignKey(Underwriter)
 	date_created = models.DateTimeField(default=datetime.datetime.now, editable=False)
@@ -60,6 +60,7 @@ class Insurance(models.Model):
 	age_limit_from = models.IntegerField(max_length=None, blank=False)
 	age_limit_to = models.IntegerField(max_length=None, blank=False)
 	product_status_active = models.BooleanField(default=True)
+
 
 
 	def __str__ (self):
@@ -74,7 +75,7 @@ class Applicant(models.Model):
 	contact_number = models.CharField(validators=[contact_regex], max_length=15)
 	created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
 	applicant_status_active =  models.BooleanField(default=True)
-	product_name = models.ForeignKey(Insurance, null=True)
+	product_name = models.ForeignKey(Product, null=True)
 	number_of_pieces = models.IntegerField(max_length=None, blank=False)
 
 

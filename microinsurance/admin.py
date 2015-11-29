@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Underwriter, Branche, Insurance, Applicant
+from django.contrib.auth.models import Group, User
+from .models import Underwriter, Branch, Insurance, Applicant
 
 
-#$admin.site.unregister(Group)
+admin.site.unregister(Group)
 admin.site.register(Underwriter)
-admin.site.register(Branche)
+admin.site.register(Branch)
 admin.site.register(Insurance)
 admin.site.register(Applicant)

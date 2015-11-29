@@ -4,6 +4,7 @@ from django.db.models.functions import Concat
 from django.contrib.auth.models import Group, User
 import datetime
 
+
 class Validators(models.Model):
 	name_validator = RegexValidator(regex=r'^\S+[a-zA-Z0-9\s]+[^~\`\!\#\$\%\^\&\*\(\)\+\=\{\}\?\/\>\;\:\<\,\[\]\|\\]*$')
 	email_validator = RegexValidator(regex=r'^[a-zA-Z0-9@_\-.][^~\`\!\#\$\%\^\&\*\(\)\+\=\{\}\?\/\>\;\:\<\,\[\]\|\\\s]*$')
@@ -11,26 +12,36 @@ class Validators(models.Model):
 
 class Underwriter(models.Model):
 	
-	underwriter_name = models.CharField(validators=[Validators.name_validator], max_length=500, blank=False, unique=True)
-	underwriter_email = models.CharField(validators=[Validators.email_validator], max_length=200, blank=False, unique=True)
+	underwriter_name = models.CharField(validators=[Validators.name_validator], max_length=500,  unique=True)
+	underwriter_email = models.CharField(validators=[Validators.email_validator], max_length=200, unique=True)
 	head_office_address = models.TextField(max_length=500, blank=False)
-	underwriter_contact_number = models.CharField(max_length=200, blank=False)
+	underwriter_contact_number = models.CharField(max_length=200)
 	contact_person = models.CharField(max_length=200, blank=False)
-	username = models.CharField(max_length=200, blank=False, unique=True)
-	password = models.CharField(max_length=200, blank=False, unique=True)
+	username = models.CharField(max_length=200, unique=True)
+	password = models.CharField(max_length=200, unique=True)
 	created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
 	underwriter_status_active =  models.BooleanField(default=True)
+
+	REQUIRED_FIELDS = [
+		'underwriter_name', 'underwriter_email', 
+	 	'underwriter_contact_number', 'contact_person',
+		'username', 'password'
+	]
 
 	def __str__(self):
 		return self.underwriter_name
 
 
-class Branche(models.Model):
+class Branch(models.Model):
 	branch_name = models.CharField(max_length=200, blank=False)
-	branch_manager = models.OneToOneField(User)
+	branch_manager = models.OneToOneField(User, primary_key=True)
 	branch_contact_number = models.CharField(max_length=200, blank=False)
 	branch_created_at = models.DateTimeField(default=datetime.datetime.now, editable=False)
 	branch_status_active =  models.BooleanField(default=True)
+
+	class Meta:
+		verbose_name = 'Branch'
+		verbose_name_plural = 'Branches'
 
 	def __str__(self):
 		return self.branch_name
@@ -64,13 +75,8 @@ class Applicant(models.Model):
 	applicant_status_active =  models.BooleanField(default=True)
 	product_name = models.ForeignKey(Insurance, null=True)
 	number_of_pieces = models.IntegerField(max_length=None, blank=False)
-	# product_validity_from = models.DateTimeField(default=datetime.datetime.now,  editable=False)
-	# product_validity_to = models.DateTimeField(default=datetime.datetime.now,  editable=False)
 
 
 	def __str__(self):
 		return '%s %s' % (self.first_name, self.last_name)
-
-# class Policy(models.Model):
-# 	applicant_name = models.ForeignKey(Applicant)
 

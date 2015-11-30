@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from selenium.webdriver.common.keys import Keys 
 import unittest
-from microinsurance.views import home_page
+from microinsurance.views import home_page, login_user
 
 
 class HomePageTest(TestCase):

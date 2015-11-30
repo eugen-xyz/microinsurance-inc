@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
 	url(r'^$', 'microinsurance.views.home_page', name='home'),
+	url(r'^login/$', 'microinsurance.views.login_user', name='log_in'),
     url(r'^admin/', include(admin.site.urls)),
 ]

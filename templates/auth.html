@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+		{% block title %}{{ 'Micro Insurance' }} {% endblock %}
+
+		
+	</head>
+	<body>
+	{{ state }}
+		<form action="/insurance/" method="POST">
+			{% if next %}
+				<input type="hidden" name="next" value="{{ next }}" />
+			{% endif %}
+			username: 
+				<input type="text" name="username" value="{{ username }}" /><br />
+			password:
+				<input type="password" name="password" value="" /><br />
+
+			<input type="submit" value="Log In" />
+			{% csrf_token %}
+		</form>
+	</body>
+</html>

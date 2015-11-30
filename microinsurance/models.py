@@ -10,9 +10,11 @@ class Validators(models.Model):
 	email_validator = RegexValidator(regex=r'^[a-zA-Z0-9@_\-.][^~\`\!\#\$\%\^\&\*\(\)\+\=\{\}\?\/\>\;\:\<\,\[\]\|\\\s]*$')
 	#add contact_number_validator = 
 
+
 class Underwriter(models.Model):
 	
-	underwriter_name = models.CharField(validators=[Validators.name_validator], max_length=500,  unique=True)
+	underwriter_name = models.CharField(validators=[Validators.name_validator], 
+		max_length=50, help_text=('Required. 50 characters or fewer. Letters only.'), unique=True)
 	underwriter_email = models.CharField(validators=[Validators.email_validator], max_length=200, unique=True)
 	head_office_address = models.TextField(max_length=500, blank=False)
 	underwriter_contact_number = models.CharField(max_length=200)

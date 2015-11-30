@@ -1,9 +1,36 @@
 {% extends "admin/base.html" %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+
+{% block title %}{{ 'Micro Insurance' }} {% endblock %}
+
+{% block extrastyle %}
+<style type="text/css">
+	#header{
+		background-color:#333333;
+	}
+	#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    	color: #333333;
+    	font-size: 24px;
+    	font-weight: bold;
+	}
+	#branding h1 a:visited {
+   		color: #F0F0F0;
+	}
+	th{
+		font-size: 15px;
+	}
+	a.section{
+		font-size:20px;
+		height:2em;
+	}
+</style>
+
+{% endblock %}
+
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">Microinsurance</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Micro Insurance</a></h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

@@ -4,10 +4,13 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
 from django.template import RequestContext
 
+# def home_page(request):
+# 	return HttpResponse('<html><title>Microinsurance</title></html>')
+
+
 def home_page(request):
-	return HttpResponse('<html><title>Microinsurance</title></html>')
-
-
+	return render(request, 'home.html')
+	
 
 def login_user(request):
 	state = "Please log in below..."
